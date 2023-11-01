@@ -361,7 +361,7 @@ router.get('/:postId/detail', async (req, res) => {
     const post = await postModel.getPostById(req.params.postId);
     if (!post) {
       return res.status(404).json({ error: 'Post not found' });
-    }ç
+    }
     res.json(post);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch post' });

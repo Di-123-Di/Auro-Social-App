@@ -44,8 +44,6 @@ const Login = ({ setUser }) => {
         setUser(userData); 
         navigate('/'); 
       } catch (profileError) {
-        console.error('获取用户资料时出错:', profileError);
-        
         const basicUserData = {
           username: loginResponse.data.username,
           _id: loginResponse.data._id
@@ -55,7 +53,7 @@ const Login = ({ setUser }) => {
         navigate('/');
       }
     } catch (err) {
-      setError(err.response?.data?.error || '登录失败');
+      setError(err.response?.data?.error || 'Login failed');
     } finally {
       setIsLoading(false);
     }

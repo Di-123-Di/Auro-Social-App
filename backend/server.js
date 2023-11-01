@@ -32,7 +32,14 @@ app.use('/api/users', userRoute);
 app.use('/api/notifications', notificationRoute); 
 
 const mongoEndpoint = process.env.MONGO_URI;
-mongoose.connect(mongoEndpoint, { useNewUrlParser: true });
+mongoose.connect(mongoEndpoint, { 
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  tls: true,
+  tlsAllowInvalidCertificates: false,
+  tlsAllowInvalidHostnames: false,
+  ssl: true
+});
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'Error connecting to MongoDB:'));
 db.once('open', () => {

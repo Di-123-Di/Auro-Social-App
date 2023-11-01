@@ -49,13 +49,14 @@ Auro is a modern social media platform built with the MERN stack (MongoDB, Expre
 ### Local Development Setup
 
 1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/SOCIAL-APP.git
-   cd SOCIAL-APP
+   ```
+   git clone https://github.com/Di-123-Di/Auro-Social-App.git
+   cd Auro-Social-App
+
    ```
 
 2. Install dependencies:
-   ```bash
+   ```
    npm install
    ```
 
@@ -83,11 +84,11 @@ Auro is a modern social media platform built with the MERN stack (MongoDB, Expre
    
    And `.env.production` for production builds (this is used automatically when building for deployment):
    ```
-   VITE_API_URL=https://your-production-url.render.com/api
+   VITE_API_URL=https://auro-social-app.onrender.com/api
    ```
 
 4. Start the development servers:
-   ```bash
+   ```
    npm run dev
    ```
 
@@ -104,8 +105,28 @@ Auro is a modern social media platform built with the MERN stack (MongoDB, Expre
    - Start Command: `npm run prod`
    - Environment Variables: Add all environment variables from your backend `.env` file
    - Set PORT to 10000 (Render's recommended port)
+   - **Important**: Add an additional environment variable `VITE_API_URL` set to `https://your-app-name.onrender.com/api`
 4. Make sure your frontend `.env.production` file has the correct Render deployment URL
 5. After deployment, URLs will automatically use your Render domain instead of localhost
+
+### MongoDB Configuration
+
+Before your application can connect to MongoDB Atlas from Render, you need to:
+
+1. Log in to MongoDB Atlas dashboard
+2. Navigate to Network Access under SECURITY
+3. Click + ADD IP ADDRESS
+4. Select "Allow Access from Anywhere" (adds 0.0.0.0/0) or add Render's IP specifically
+5. Add a comment (e.g., "Render Deployment") and confirm
+
+These steps are essential to allow your deployed application to connect to your database.
+
+### Common Deployment Issues
+
+- If you see CORS errors in the console, check that the `VITE_API_URL` environment variable is correctly set
+- For MongoDB connection errors, verify IP access settings and database credentials
+- The free tier will spin down with inactivity, which can delay requests by 50 seconds or more
+- For a smoother experience during demonstrations, visit your app a few minutes before to warm up the server
 
 ## Project Structure
 
@@ -173,13 +194,7 @@ SOCIAL APP/
 - `GET /api/notifications/unread-count` - Get unread notification count
 - `PUT /api/notifications/read-all` - Mark all notifications as read
 
-## Contributing
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
 
 ## License
 
@@ -189,9 +204,9 @@ You are NOT allowed to modify, copy, distribute, or use this code for commercial
 
 ## Contact
 
-Your Name
+Di Mu
 
-Project Link: [https://github.com/yourusername/SOCIAL-APP](https://github.com/yourusername/SOCIAL-APP)
+Project Link: https://github.com/Di-123-Di/Auro-Social-App
 
 ## Acknowledgements
 

@@ -113,7 +113,8 @@ export async function getPostsByUser(userId) {
 }
 
 export async function updatePost(postId, userId, content) {
-  return PostModel.findOneAndUpdate(
+
+  const updatedPost = await PostModel.findOneAndUpdate(
     {
       _id: postId,
       author: userId
@@ -125,7 +126,18 @@ export async function updatePost(postId, userId, content) {
     {
       new: true
     }
-  ).exec();
+  ).populate('author', 'username avatar').lean();  
+  
+
+  if (updatedPost) {
+    return {
+      ...updatedPost,
+      author: updatedPost.author.username,
+      authorAvatar: updatedPost.author.avatar
+    };
+  }
+  
+  return null;
 }
 
 export async function deletePost(postId, userId) {
@@ -156,7 +168,7 @@ export async function toggleLike(postId, userId) {
           post: postId
         });
       } catch (error) {
-        console.error('Failed to create like notification:', error);
+
       }
     }
   }
@@ -214,7 +226,6 @@ export async function createRetweet(originalPostId, userId) {
         post: originalPostId
       });
     } catch (error) {
-      console.error('Failed to create retweet notification:', error);
     }
   }
   
@@ -262,7 +273,7 @@ export async function createQuoteRetweet(originalPostId, userId, content) {
         post: originalPostId
       });
     } catch (error) {
-      console.error('Failed to create quote retweet notification:', error);
+
     }
   }
   
@@ -316,7 +327,7 @@ export async function addComment(postId, userId, content) {
         post: postId
       });
     } catch (error) {
-      console.error('Failed to create comment notification:', error);
+
     }
   }
   

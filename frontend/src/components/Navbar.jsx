@@ -153,7 +153,7 @@ const Navbar = ({ user, setUser }) => {
                 </Link>
                 <Link
                   to="/register"
-                  className="px-4 py-2 bg-white text-blue-600 hover:bg-blue-50 rounded-md transition-colors"
+                  className="px-4 py-2 border border-white text-white hover:bg-white hover:text-blue-600 rounded-md transition-colors"
                 >
                   <UserPlus size={18} className="inline mr-1" />
                   <span className="hidden sm:inline">Register</span>
