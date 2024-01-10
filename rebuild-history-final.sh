@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 1. Initial commit: setup repo
-git add .
+git add frontend/ backend/
 GIT_COMMITTER_DATE="2023-11-01T09:00:00" git commit -m "Initial commit: project bootstrap" --date="2023-11-01T09:00:00"
 
 # 2. Backend models and schema
