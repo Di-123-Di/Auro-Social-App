@@ -214,7 +214,6 @@ export async function createRetweet(originalPostId, userId) {
         post: originalPostId
       });
     } catch (error) {
-\
     }
   }
   
@@ -262,7 +261,7 @@ export async function createQuoteRetweet(originalPostId, userId, content) {
         post: originalPostId
       });
     } catch (error) {
-\
+
     }
   }
   
@@ -316,7 +315,7 @@ export async function addComment(postId, userId, content) {
         post: postId
       });
     } catch (error) {
-  \
+
     }
   }
   
