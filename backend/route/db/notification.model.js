@@ -7,8 +7,7 @@ export async function createNotification(notificationData) {
   try {
     return await NotificationModel.create(notificationData);
   } catch (error) {
-    console.error('Failed to create notification:', error);
-    throw error;
+    return null; 
   }
 }
 
@@ -20,33 +19,30 @@ export async function getUserNotifications(userId) {
       .populate('post', 'content')
       .lean();
   } catch (error) {
-    console.error('Failed to get user notifications:', error);
-    throw error;
+    return []; 
   }
 }
 
 export async function markNotificationAsRead(notificationId) {
   try {
     return await NotificationModel.findByIdAndUpdate(
-      notificationId, 
-      { read: true }, 
+      notificationId,
+      { read: true },
       { new: true }
     );
   } catch (error) {
-    console.error('Failed to mark notification as read:', error);
-    throw error;
+    return null;
   }
 }
 
 export async function markAllNotificationsAsRead(userId) {
   try {
     return await NotificationModel.updateMany(
-      { recipient: userId, read: false }, 
+      { recipient: userId, read: false },
       { read: true }
     );
   } catch (error) {
-    console.error('Failed to mark all notifications as read:', error);
-    throw error;
+    return { nModified: 0 }; 
   }
 }
 
@@ -57,8 +53,7 @@ export async function getUnreadNotificationsCount(userId) {
       read: false
     });
   } catch (error) {
-    console.error('Failed to get unread notifications count:', error);
-    throw error;
+    return 0; 
   }
 }
 
@@ -66,7 +61,6 @@ export async function deleteNotification(notificationId) {
   try {
     return await NotificationModel.findByIdAndDelete(notificationId);
   } catch (error) {
-    console.error('Failed to delete notification:', error);
-    throw error;
+    return null;
   }
 }

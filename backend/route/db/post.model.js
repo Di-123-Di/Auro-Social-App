@@ -156,7 +156,7 @@ export async function toggleLike(postId, userId) {
           post: postId
         });
       } catch (error) {
-        console.error('Failed to create like notification:', error);
+
       }
     }
   }
@@ -214,7 +214,7 @@ export async function createRetweet(originalPostId, userId) {
         post: originalPostId
       });
     } catch (error) {
-      console.error('Failed to create retweet notification:', error);
+\
     }
   }
   
@@ -262,7 +262,7 @@ export async function createQuoteRetweet(originalPostId, userId, content) {
         post: originalPostId
       });
     } catch (error) {
-      console.error('Failed to create quote retweet notification:', error);
+\
     }
   }
   
@@ -316,7 +316,7 @@ export async function addComment(postId, userId, content) {
         post: postId
       });
     } catch (error) {
-      console.error('Failed to create comment notification:', error);
+  \
     }
   }
   

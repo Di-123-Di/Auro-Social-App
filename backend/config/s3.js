@@ -30,7 +30,6 @@ export const uploadToS3 = async (file) => {
    
     return `https://${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${fileName}`;
   } catch (error) {
-    console.error('S3 upload error:', error);
     throw new Error('Failed to upload file to S3');
   }
 };

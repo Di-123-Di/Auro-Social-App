@@ -17,6 +17,7 @@ const Post = ({ post, onDelete, onUpdate, currentUser }) => {
   const [showComments, setShowComments] = useState(false);
   const [commentText, setCommentText] = useState('');
   const [comments, setComments] = useState([]);
+  const [commentsLoaded, setCommentsLoaded] = useState(false);
   const [isAddingComment, setIsAddingComment] = useState(false);
   const [fullOriginalPost, setFullOriginalPost] = useState(null);
 
@@ -27,13 +28,6 @@ const Post = ({ post, onDelete, onUpdate, currentUser }) => {
   const isRetweetAuthor = post.isRetweet && currentUser && currentUser.username === post.author;
   const MAX_CHARS = 280;
 
-  // Debug information for quote retweets (silent logging)
-  useEffect(() => {
-    if (post.isQuoteRetweet) {
-      console.log("Quote retweet data:", post);
-      console.log("Original post data:", post.originalPost);
-    }
-  }, [post]);
 
   // Fetch full original post data when needed
   useEffect(() => {
@@ -43,9 +37,7 @@ const Post = ({ post, onDelete, onUpdate, currentUser }) => {
       if (isIncomplete) {
         const fetchOriginalPost = async () => {
           try {
-            console.log("Fetching complete original post:", post.originalPost._id);
             const response = await posts.getById(post.originalPost._id);
-            console.log("Fetched original post data:", response.data);
             setFullOriginalPost(response.data);
           } catch (err) {
             console.error("Failed to fetch original post:", err);
@@ -57,6 +49,21 @@ const Post = ({ post, onDelete, onUpdate, currentUser }) => {
     }
   }, [post]);
 
+  // Fetch comments count on initial load
+  useEffect(() => {
+    const fetchCommentCount = async () => {
+      try {
+        const response = await posts.getComments(post._id);
+        setComments(response.data);
+        setCommentsLoaded(true);
+      } catch (err) {
+        console.error('Failed to fetch comment count:', err);
+      }
+    };
+    
+    fetchCommentCount();
+  }, [post._id]);
+
   function getRetweetsCount() {
     return post.isRetweet && post.originalPost 
       ? post.originalPost.retweets?.length || 0 
@@ -64,11 +71,12 @@ const Post = ({ post, onDelete, onUpdate, currentUser }) => {
   }
 
   useEffect(() => {
-    if (showComments) {
+    if (showComments && !commentsLoaded) {
       const fetchComments = async () => {
         try {
           const response = await posts.getComments(post._id);
           setComments(response.data);
+          setCommentsLoaded(true);
         } catch (err) {
           setError('Failed to load comments');
         }
@@ -76,7 +84,7 @@ const Post = ({ post, onDelete, onUpdate, currentUser }) => {
       
       fetchComments();
     }
-  }, [showComments, post._id]);
+  }, [showComments, post._id, commentsLoaded]);
 
   useEffect(() => {
     setIsLiked(post.likes?.includes(currentUser?._id));
@@ -217,8 +225,6 @@ const Post = ({ post, onDelete, onUpdate, currentUser }) => {
       setIsQuoting(true);
       
       const response = await posts.quoteRetweet(post._id, quoteText);
-      
-      console.log('Quote retweet response:', response);
       
       setQuoteText('');
       setIsQuoting(false);
@@ -499,7 +505,6 @@ const Post = ({ post, onDelete, onUpdate, currentUser }) => {
                     className="w-full object-contain" 
                     style={{maxHeight: "400px"}}
                     onError={(e) => {
-                      console.error("Failed to load image:", fullOriginalPost?.image || post.originalPost?.image);
                       e.target.style.display = 'none';
                     }}
                   />
@@ -538,7 +543,7 @@ const Post = ({ post, onDelete, onUpdate, currentUser }) => {
               aria-label="Comments"
             >
               <MessageSquare size={18} />
-              <span>{comments.length > 0 ? comments.length : ''}</span>
+              <span>{commentsLoaded && comments.length > 0 ? comments.length : ''}</span>
             </button>
             
             <button
