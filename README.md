@@ -105,6 +105,7 @@ Auro is a modern social media platform built with the MERN stack (MongoDB, Expre
    - Start Command: `npm run prod`
    - Environment Variables: Add all environment variables from your backend `.env` file
    - Set PORT to 10000 (Render's recommended port)
+   - **Important**: Add an additional environment variable `VITE_API_URL` set to `https://your-app-name.onrender.com/api`
 4. Make sure your frontend `.env.production` file has the correct Render deployment URL
 5. After deployment, URLs will automatically use your Render domain instead of localhost
 
