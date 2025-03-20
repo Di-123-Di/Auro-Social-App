@@ -49,13 +49,14 @@ Auro is a modern social media platform built with the MERN stack (MongoDB, Expre
 ### Local Development Setup
 
 1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/SOCIAL-APP.git
-   cd SOCIAL-APP
+   ```
+   git clone https://github.com/Di-123-Di/Auro-Social-App.git
+   cd Auro-Social-App
+
    ```
 
 2. Install dependencies:
-   ```bash
+   ```
    npm install
    ```
 
@@ -83,11 +84,11 @@ Auro is a modern social media platform built with the MERN stack (MongoDB, Expre
    
    And `.env.production` for production builds (this is used automatically when building for deployment):
    ```
-   VITE_API_URL=https://your-production-url.render.com/api
+   VITE_API_URL=https://auro-social-app.onrender.com/api
    ```
 
 4. Start the development servers:
-   ```bash
+   ```
    npm run dev
    ```
 
@@ -173,13 +174,7 @@ SOCIAL APP/
 - `GET /api/notifications/unread-count` - Get unread notification count
 - `PUT /api/notifications/read-all` - Mark all notifications as read
 
-## Contributing
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
 
 ## License
 
@@ -189,9 +184,9 @@ You are NOT allowed to modify, copy, distribute, or use this code for commercial
 
 ## Contact
 
-Your Name
+Di Mu
 
-Project Link: [https://github.com/yourusername/SOCIAL-APP](https://github.com/yourusername/SOCIAL-APP)
+Project Link: https://github.com/Di-123-Di/Auro-Social-App
 
 ## Acknowledgements
 
